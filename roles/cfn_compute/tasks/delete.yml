@@ -1,0 +1,6 @@
+---
+- name: delete a stack
+  cloudformation:
+    stack_name: "{{ stack_name }}"
+    state: absent
+    region: "{{ lookup('env','AWS_REGION') }}"

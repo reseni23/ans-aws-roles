@@ -1,0 +1,17 @@
+---
+- name: create a stack, pass in the template via an URL
+  cloudformation:
+    stack_name: "{{ stack_name }}"
+    state: present
+    region: "{{ lookup('env','AWS_REGION') }}"
+    disable_rollback: false
+    template_url: "{{ lookup('env','TEMPLATE_URL') }}"
+    template_parameters:
+      VpcCIDR: "{{ lookup('env','VPC_CIDR') }}"
+      PublicSubnet1CIDR: "{{ lookup('env','PUBLIC_SUBNET_1_CIDR') }}"
+      PublicSubnet2CIDR: "{{ lookup('env','PUBLIC_SUBNET_2_CIDR') }}"
+      PrivateSubnet1CIDR: "{{ lookup('env','PRIVATE_SUBNET_1_CIDR') }}"
+      PrivateSubnet2CIDR: "{{ lookup('env','PRIVATE_SUBNET_2_CIDR') }}"
+      TagEnv: "{{ lookup('env','TAG_ENVIRONMENT') }}"
+    tags:
+      Stack: "{{ stack_name }}"

@@ -1,0 +1,23 @@
+version: 0.2
+
+env:
+  variables:
+    TEMPLATE_URL: "https://reznichenko.s3.eu-central-1.amazonaws.com/compute-stack.template"
+    AWS_REGION: "eu-central-1"
+    TAG_ENVIRONMENT: "ans-cfn"
+    TAG_NAME: "MHW app"
+    TAG_GROUP: "webservers"
+  parameter-store:
+    INSTANCE_TYPE: "/ansible_test/instance_type"
+    SSH_LOCATION: "/ansible_test/ssh_location"
+    KEY_NAME: "/ansible_test/key_name"
+
+phases:
+  install:
+    runtime-versions:
+      python: 3.7
+    commands:
+      - pip install -r requirements.txt -q
+  build:
+    commands:
+      - ansible-playbook -i inventories/aws_ec2.yml playbooks/20_cfn_compute.yml --tags create -vvv

@@ -1,0 +1,30 @@
+---
+- name: Test cfn_compute Ansible role
+  gather_facts: True
+  hosts: tag_Group_webservers
+
+  pre_tasks:
+  - name: List all ansible facts
+    debug:
+      msg: "{{ ansible_facts }}"
+
+  tasks:
+  - name: Check if EC2 instance's timezone is set to 'UTC'
+    debug:
+      msg: Timezone is UTC
+    failed_when: ansible_facts['date_time']['tz'] != 'UTC'
+
+  - name: Check if EC2 instance's OS is 'Amazon'
+    debug:
+      msg: OS is Amazon
+    failed_when: ansible_facts['distribution_file_variety'] != 'Amazon'
+
+  - name: Check if EC2 instance's OS major version is '2018'
+    debug:
+      msg: OS major version is 2018
+    failed_when: ansible_facts['distribution_major_version'] != '2018'
+
+  - name: Check if EC2 instance's UserID is 'ec2-user'
+    debug:
+      msg: UserID is ec2-user
+    failed_when: ansible_facts['user_id'] != 'ec2-user'

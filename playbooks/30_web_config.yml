@@ -1,0 +1,9 @@
+---
+- name: Configure MHW apps
+  hosts: tag_Group_webservers
+  gather_facts: False
+  become: yes
+  become_method: sudo
+
+  roles:
+    - role: httpd

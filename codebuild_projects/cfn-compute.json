@@ -1,0 +1,46 @@
+{
+    "name": "cfn-compute",
+    "description": "Build EC2 resources for Web Servers using CloudFormation and Ansible",
+    "source": {
+        "type": "CODECOMMIT",
+        "location": "https://git-codecommit.eu-central-1.amazonaws.com/v1/repos/ans-aws-cnf",
+        "gitCloneDepth": 1,
+        "gitSubmodulesConfig": {
+            "fetchSubmodules": false
+        },
+        "buildspec": "buildspec_files/buildspec_compute.yml",
+        "insecureSsl": false
+    },
+    "secondarySources": [],
+    "artifacts": {
+        "type": "NO_ARTIFACTS"
+    },
+    "secondaryArtifacts": [],
+    "cache": {
+        "type": "NO_CACHE"
+    },
+    "environment": {
+        "type": "LINUX_CONTAINER",
+        "image": "aws/codebuild/standard:2.0",
+        "computeType": "BUILD_GENERAL1_SMALL",
+        "environmentVariables": [],
+        "privilegedMode": false,
+        "imagePullCredentialsType": "CODEBUILD"
+    },
+    "serviceRole": "arn:aws:iam::197857380123:role/service-role/codebuild-cf-service-role",
+    "timeoutInMinutes": 60,
+    "queuedTimeoutInMinutes": 480,
+    "encryptionKey": "arn:aws:kms:eu-central-1:197857380123:alias/aws/s3",
+    "tags": [],
+    "vpcConfig": {},
+    "badgeEnabled": true,
+    "logsConfig": {
+        "cloudWatchLogs": {
+            "status": "ENABLED"
+        },
+        "s3Logs": {
+            "status": "DISABLED",
+            "encryptionDisabled": false
+        }
+    }
+}
